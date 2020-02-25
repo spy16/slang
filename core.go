@@ -52,26 +52,26 @@ func TypeOf(v interface{}) sabre.Value {
 // Implements checks if given value implements the interface represented
 // by 't'. Returns error if 't' does not represent an interface type.
 func Implements(v interface{}, t sabre.Type) (bool, error) {
-	if t.R.Kind() == reflect.Ptr {
-		t.R = t.R.Elem()
+	if t.T.Kind() == reflect.Ptr {
+		t.T = t.T.Elem()
 	}
 
-	if t.R.Kind() != reflect.Interface {
+	if t.T.Kind() != reflect.Interface {
 		return false, fmt.Errorf("type '%s' is not an interface type", t)
 	}
 
-	return reflect.TypeOf(v).Implements(t.R), nil
+	return reflect.TypeOf(v).Implements(t.T), nil
 }
 
 // ToType attempts to convert given sabre value to target type. Returns
 // error if conversion not possible.
 func ToType(val sabre.Value, to sabre.Type) (sabre.Value, error) {
 	rv := reflect.ValueOf(val)
-	if rv.Type().ConvertibleTo(to.R) || rv.Type().AssignableTo(to.R) {
-		return sabre.ValueOf(rv.Convert(to.R).Interface()), nil
+	if rv.Type().ConvertibleTo(to.T) || rv.Type().AssignableTo(to.T) {
+		return sabre.ValueOf(rv.Convert(to.T).Interface()), nil
 	}
 
-	return nil, fmt.Errorf("cannot convert '%s' to '%s'", rv.Type(), to.R)
+	return nil, fmt.Errorf("cannot convert '%s' to '%s'", rv.Type(), to.T)
 }
 
 // Assert implements (assert <expr> message?).
@@ -138,6 +138,30 @@ func ThreadFirst(scope sabre.Scope, args []sabre.Value) (sabre.Value, error) {
 // eval as last argument to next expr.
 func ThreadLast(scope sabre.Scope, args []sabre.Value) (sabre.Value, error) {
 	return threadCall(scope, args, true)
+}
+
+// MakeString returns stringified version of all args.
+func MakeString(vals ...sabre.Value) sabre.Value {
+	argc := len(vals)
+	switch argc {
+	case 0:
+		return sabre.String("")
+
+	case 1:
+		nilVal := sabre.Nil{}
+		if vals[0] == nilVal || vals[0] == nil {
+			return sabre.String("")
+		}
+
+		return sabre.String(strings.Trim(vals[0].String(), "\""))
+
+	default:
+		var sb strings.Builder
+		for _, v := range vals {
+			sb.WriteString(strings.Trim(v.String(), "\""))
+		}
+		return sabre.String(sb.String())
+	}
 }
 
 func threadCall(scope sabre.Scope, args []sabre.Value, last bool) (sabre.Value, error) {
