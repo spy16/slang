@@ -119,3 +119,10 @@
                                 (println "Sum of numbers: " sum)
                                 sum))))
 (assert (= (+ 1 2 3 4 5) sum-through-let))
+
+
+(defn square [num] (* num num))
+(defn positive? [num] (> num 0))
+
+(assert (= [1.0 4.0 9.0 25.0] (map square [1 2 3 5])))
+(assert (= [2 5 4 1] (filter positive? [-1 0 -2 2 5 4 1])))

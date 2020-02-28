@@ -17,11 +17,6 @@ func BindAll(scope sabre.Scope) error {
 			Func:     ThreadLast,
 			Variadic: true,
 		},
-		"core/assert": &sabre.Fn{
-			Func:     Assert,
-			Args:     []string{"expr", "err?"},
-			Variadic: true,
-		},
 
 		// special forms
 		"core/do":           sabre.Do,
@@ -33,20 +28,12 @@ func BindAll(scope sabre.Scope) error {
 		"core/quote":        sabre.SimpleQuote,
 		"core/syntax-quote": sabre.SyntaxQuote,
 
-		"core/eval":      sabre.ValueOf(sabre.Eval),
-		"core/type":      sabre.ValueOf(TypeOf),
-		"core/to-type":   sabre.ValueOf(ToType),
-		"core/impl?":     sabre.ValueOf(Implements),
-		"core/realize":   sabre.ValueOf(Realize),
-		"core/apply-seq": sabre.ValueOf(ApplySeq),
-		"core/throw":     sabre.ValueOf(Throw),
-
-		// Sequence functions
-		"core/next":   sabre.ValueOf(Next),
-		"core/first":  sabre.ValueOf(First),
-		"core/cons":   sabre.ValueOf(Cons),
-		"core/conj":   sabre.ValueOf(Conj),
-		"core/concat": sabre.ValueOf(Concat),
+		"core/eval":    sabre.ValueOf(sabre.Eval),
+		"core/type":    sabre.ValueOf(TypeOf),
+		"core/to-type": sabre.ValueOf(ToType),
+		"core/impl?":   sabre.ValueOf(Implements),
+		"core/realize": sabre.ValueOf(Realize),
+		"core/throw":   sabre.ValueOf(Throw),
 
 		// Type system functions
 		"core/str": sabre.ValueOf(MakeString),

@@ -15,18 +15,6 @@ func Throw(scope sabre.Scope, args ...sabre.Value) error {
 	return errors.New(strings.Trim(MakeString(args...).String(), "\""))
 }
 
-// ApplySeq invokes fn with argument list formed by realizing the sequence.
-func ApplySeq(scope sabre.Scope, fn sabre.Invokable, seq sabre.Seq) (sabre.Value, error) {
-	return fn.Invoke(scope, Realize(seq).Values...)
-}
-
-// Concat concatenates s1 and s2 and returns a new sequence.
-func Concat(s1, s2 sabre.Seq) sabre.Seq {
-	vals := Realize(s1)
-	vals.Values = append(vals.Values, Realize(s2).Values...)
-	return vals
-}
-
 // Realize realizes a sequence by continuously calling First() and Next()
 // until the sequence becomes nil.
 func Realize(seq sabre.Seq) *sabre.List {
@@ -72,60 +60,6 @@ func ToType(val sabre.Value, to sabre.Type) (sabre.Value, error) {
 	}
 
 	return nil, fmt.Errorf("cannot convert '%s' to '%s'", rv.Type(), to.T)
-}
-
-// Assert implements (assert <expr> message?).
-func Assert(scope sabre.Scope, args []sabre.Value) (sabre.Value, error) {
-	if err := verifyArgCount([]int{1, 2}, args); err != nil {
-		return nil, err
-	}
-
-	test, err := sabre.Eval(scope, args[0])
-	if err != nil {
-		return nil, err
-	}
-
-	if isTruthy(test) {
-		return nil, nil
-	}
-
-	if len(args) == 1 {
-		return nil, fmt.Errorf("assertion failed: '%s'", args[0])
-	}
-
-	msg, err := sabre.Eval(scope, args[1])
-	if err != nil {
-		return nil, err
-	}
-
-	return nil, fmt.Errorf("%v", msg)
-}
-
-// First returns the first value from the given Seq value.
-func First(seq sabre.Seq) sabre.Value {
-	return seq.First()
-}
-
-// Next returns the values after the first value as a list.
-func Next(seq sabre.Seq) sabre.Value {
-	n := seq.Next()
-	if n == nil {
-		return sabre.Nil{}
-	}
-
-	return n
-}
-
-// Cons inserts the first argument as first element in the second seq argument
-// and returns.
-func Cons(v sabre.Value, seq sabre.Seq) sabre.Value {
-	return Realize(seq.Cons(v))
-}
-
-// Conj appends the second argument as last element in the first seq argument
-// and returns.
-func Conj(seq sabre.Seq, args ...sabre.Value) sabre.Value {
-	return Realize(seq.Conj(args...))
 }
 
 // ThreadFirst threads the expressions through forms by inserting result of
