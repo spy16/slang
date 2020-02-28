@@ -74,7 +74,7 @@
     (if (nil? coll)
         (cons val ())
         (if (seq? coll)
-            ((. Cons coll) val)
+            (coll.Cons val)
             (throw "cons cannot be done for " (type coll)))))
 
 (defn last [coll]

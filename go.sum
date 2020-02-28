@@ -4,7 +4,7 @@ github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e h1:fY5BOSpyZCqRo5O
 github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e/go.mod h1:nSuG5e5PlCu98SY8svDHJxuZscDgtXS6KTTbou5AhLI=
 github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1 h1:q763qf9huN11kDQavWsoZXJNW3xEE4JJyHa5Q25/sd8=
 github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMnBNeIyt5eFwwo7qiLfzFZmjNmxjkiQlU=
-github.com/spy16/sabre v0.3.1-0.20200225175342-aa85833717a3 h1:2eIFmiHljkjBg7zMj89dXbozkmhRRShGbyiwOHIuCLs=
-github.com/spy16/sabre v0.3.1-0.20200225175342-aa85833717a3/go.mod h1:I6st/cD1FBSbM/zRP7qomKbnS/dXIZC+JizQyW7L0ss=
+github.com/spy16/sabre v0.3.1 h1:SlPgKc7ryesGuh9N7rKMsmQp8RokzhR7x3yab/lvP+Y=
+github.com/spy16/sabre v0.3.1/go.mod h1:I6st/cD1FBSbM/zRP7qomKbnS/dXIZC+JizQyW7L0ss=
 golang.org/x/sys v0.0.0-20200223170610-d5e6a3e2c0ae h1:/WDfKMnPU+m5M4xB+6x4kaepxRw6jWvR5iDRdvjHgy8=
 golang.org/x/sys v0.0.0-20200223170610-d5e6a3e2c0ae/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=

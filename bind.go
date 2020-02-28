@@ -22,9 +22,6 @@ func BindAll(scope sabre.Scope) error {
 			Args:     []string{"expr", "err?"},
 			Variadic: true,
 		},
-		"core/.": &sabre.Fn{
-			Func: sabre.Dot,
-		},
 
 		// special forms
 		"core/do":           sabre.Do,
