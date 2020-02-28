@@ -28,12 +28,13 @@ func BindAll(scope sabre.Scope) error {
 		"core/quote":        sabre.SimpleQuote,
 		"core/syntax-quote": sabre.SyntaxQuote,
 
-		"core/eval":    sabre.ValueOf(sabre.Eval),
-		"core/type":    sabre.ValueOf(TypeOf),
-		"core/to-type": sabre.ValueOf(ToType),
-		"core/impl?":   sabre.ValueOf(Implements),
-		"core/realize": sabre.ValueOf(Realize),
-		"core/throw":   sabre.ValueOf(Throw),
+		"core/macroexpand": sabre.ValueOf(MacroExpand),
+		"core/eval":        sabre.ValueOf(sabre.Eval),
+		"core/type":        sabre.ValueOf(TypeOf),
+		"core/to-type":     sabre.ValueOf(ToType),
+		"core/impl?":       sabre.ValueOf(Implements),
+		"core/realize":     sabre.ValueOf(Realize),
+		"core/throw":       sabre.ValueOf(Throw),
 
 		// Type system functions
 		"core/str": sabre.ValueOf(MakeString),

@@ -9,6 +9,13 @@ import (
 	"github.com/spy16/sabre"
 )
 
+// MacroExpand is a wrapper around the sabre MacroExpand function that
+// ignores the expanded bool flag.
+func MacroExpand(scope sabre.Scope, f sabre.Value) (sabre.Value, error) {
+	f, _, err := sabre.MacroExpand(scope, f)
+	return f, err
+}
+
 // Throw converts args to strings and returns an error with all the strings
 // joined.
 func Throw(scope sabre.Scope, args ...sabre.Value) error {
