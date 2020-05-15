@@ -38,6 +38,9 @@
             (throw "argument must be a collection, not " (type coll))
             (coll.First))))
 
+(defn second [coll]
+    (first (next coll)))
+
 (defn next [coll]
     (if (not (seq? coll))
         (throw "argument must be a collection, not " (type coll)))
@@ -77,6 +80,11 @@
         true
         (int? num)))
 
+(defn even? [num]
+    (= (mod num 2) 0.0))
+
+(defn odd? [num]
+    (= (mod num 2) 1.0))
 
 (defn inc [num]
     (if (not (number? num))

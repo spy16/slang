@@ -9,6 +9,36 @@ import (
 	"github.com/spy16/sabre"
 )
 
+// Case implements the switch case construct.
+func Case(scope sabre.Scope, args []sabre.Value) (sabre.Value, error) {
+	if len(args) < 2 {
+		return nil, errors.New("case requires at-least 2 args")
+	}
+
+	res, err := sabre.Eval(scope, args[0])
+	if err != nil {
+		return nil, err
+	}
+
+	if len(args) == 2 {
+		return sabre.Eval(scope, args[1])
+	}
+
+	start := 1
+	for ; start < len(args); start += 2 {
+		val := args[start]
+		if start+1 >= len(args) {
+			return val, nil
+		}
+
+		if sabre.Compare(res, val) {
+			return sabre.Eval(scope, args[start+1])
+		}
+	}
+
+	return nil, fmt.Errorf("no matching clause for '%s'", res)
+}
+
 // MacroExpand is a wrapper around the sabre MacroExpand function that
 // ignores the expanded bool flag.
 func MacroExpand(scope sabre.Scope, f sabre.Value) (sabre.Value, error) {

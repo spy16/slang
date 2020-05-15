@@ -1,6 +1,8 @@
 package slang
 
 import (
+	"math"
+
 	"github.com/spy16/sabre"
 )
 
@@ -15,6 +17,11 @@ func BindAll(scope sabre.Scope) error {
 		"core/->>": &sabre.Fn{
 			Args:     []string{"exprs"},
 			Func:     ThreadLast,
+			Variadic: true,
+		},
+		"core/case": &sabre.Fn{
+			Args:     []string{"exprs", "clauses"},
+			Func:     Case,
 			Variadic: true,
 		},
 
@@ -40,15 +47,16 @@ func BindAll(scope sabre.Scope) error {
 		"core/str": sabre.ValueOf(MakeString),
 
 		// Math functions
-		"core/+":  sabre.ValueOf(Add),
-		"core/-":  sabre.ValueOf(Sub),
-		"core/*":  sabre.ValueOf(Multiply),
-		"core//":  sabre.ValueOf(Divide),
-		"core/=":  sabre.ValueOf(sabre.Compare),
-		"core/>":  sabre.ValueOf(Gt),
-		"core/>=": sabre.ValueOf(GtE),
-		"core/<":  sabre.ValueOf(Lt),
-		"core/<=": sabre.ValueOf(LtE),
+		"core/+":   sabre.ValueOf(Add),
+		"core/-":   sabre.ValueOf(Sub),
+		"core/*":   sabre.ValueOf(Multiply),
+		"core//":   sabre.ValueOf(Divide),
+		"core/mod": sabre.ValueOf(math.Mod),
+		"core/=":   sabre.ValueOf(sabre.Compare),
+		"core/>":   sabre.ValueOf(Gt),
+		"core/>=":  sabre.ValueOf(GtE),
+		"core/<":   sabre.ValueOf(Lt),
+		"core/<=":  sabre.ValueOf(LtE),
 
 		// io functions
 		"core/println": sabre.ValueOf(Println),
